@@ -14,6 +14,15 @@ Bu proje, sporcu performansını takip eden bir REST API'dir.
 - **Postman Koleksiyonu**: API endpointlerini test etmek için Postman kullanabilirsiniz.
 - **Kullanıcı Rolleri**: `coach`, `athlete`, `admin`.
 
+## Özellikler
+
+- **Repository Katmanı**: Veri erişim işlemleri tamamen repository sınıflarında kapsüllenmiş durumda.
+
+- **Şifreleme**: bcrypt ile şifreler hash'lenerek saklanıyor, güvenli bir yapı sağlıyor.
+  Repository Katmanı: Veri erişim işlemleri tamamen repository sınıflarında kapsüllenmiş durumda.
+
+- **JWT** : Kullanıcı girişinde JWT token üretiliyor ve diğer endpoint'lerde kimlik doğrulama için kullanılıyor.
+
 ## Kullanılan Kütüphaneler
 
 Aşağıda, projede kullanılan başlıca kütüphaneler ve bunların işlevleri yer almaktadır:
@@ -41,6 +50,8 @@ Aşağıda, projede kullanılan başlıca kütüphaneler ve bunların işlevleri
 
 8. **swagger-ui-express** (`^5.0.1`):  
    Express.js uygulamanızda Swagger UI'ı entegre etmek için kullanılır. Bu, API'nizin interaktif bir şekilde görüntülenmesini sağlar ve geliştiricilerin API'nizi kolayca keşfetmesini mümkün kılar.
+9. **bcrypt** (`^5.1.0`):  
+   Kullanıcı şifrelerini güvenli bir şekilde hash'lemek ve doğrulamak için kullanılır. Şifrelerinizi veritabanında güvenli bir şekilde saklamak için yaygın olarak kullanılan bir şifreleme kütüphanesidir.
 
 ## Geliştirici Bağımlılıkları
 
@@ -49,6 +60,9 @@ Aşağıda, projede kullanılan başlıca kütüphaneler ve bunların işlevleri
 
 ## Endpointler
 
+- `POST /api/register`: Yeni kullanıcı kaydı
+- `POST /api/login`: Kullanıcı girişi (JWT token döndürür)
+- `GET /api/me`: Giriş yapmış kullanıcının bilgilerini getirir (kimlik doğrulama gerektirir)
 - `POST /api/programs`: Yeni antrenman programı oluştur (coach)
 - `GET /api/programs`: Tüm programları listele (coach)
 - `GET /api/programs/:id`: Belirli bir programı getir (coach & athlete)
