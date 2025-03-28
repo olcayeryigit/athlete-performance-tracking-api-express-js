@@ -1,20 +1,26 @@
 const { Sequelize } = require("sequelize");
+require("dotenv").config();
 
-// Sequelize ile veritabanı bağlantısı
-const sequelize = new Sequelize("athlete_performance_db", "root", "root", {
-  host: "localhost",
-  dialect: "mysql",
-  logging: false, // SQL sorgularının konsola yazdırılmaması
-});
+// Sequelize bağlantısı
+const sequelize = new Sequelize(
+  process.env.DB_NAME,
+  process.env.DB_USER,
+  process.env.DB_PASSWORD,
+  {
+    host: process.env.DB_HOST,
+    dialect: "mysql",
+    logging: false,
+  }
+);
 
-// Veritabanı bağlantısını kontrol etme
-async function checkDatabaseConnection() {
+// Veritabanı bağlantısını kontrol etmek için bir fonksiyon
+const checkDatabaseConnection = async () => {
   try {
     await sequelize.authenticate();
     console.log("Veritabanı bağlantısı başarılı.");
-  } catch (err) {
-    console.error("Veritabanı bağlantısı hatası:", err);
+  } catch (error) {
+    console.error("Veritabanı bağlantısı hatası:", error);
   }
-}
+};
 
 module.exports = { sequelize, checkDatabaseConnection };
